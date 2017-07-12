@@ -1,9 +1,4 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-//mongoose.connect('mongodb://catlover:ilovetesting@ds151222.mlab.com:51222/ninechat');
-mongoose.connection.once('open', () => {
-  console.log('Connected with MongoDB ORM - mongodb-orm');
-});
+const { mongoose } = require('./../db/mongoose');
 
 let usersSchema = mongoose.Schema({
     // user_id: String,

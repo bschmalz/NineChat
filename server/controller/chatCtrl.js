@@ -1,8 +1,8 @@
 const Message = require('../model/message');
-const User = require('../model/users');
+const User = require('../model/user');
+const { mongoose } = require('./../db/mongoose');
 
 const chatCtrl = {
-
   addMsg(data, callback) {
     return new Promise((resolve, reject) => {
       const message = new Message(JSON.parse(data));
