@@ -5,9 +5,12 @@ const submitUser = (event, isSignup) => {
   const password = document.getElementById(`${type}-password`).value;
 
   const xhr = new XMLHttpRequest;
-  xhr.open('POST', `http://192.168.0.98:3000/${type}`);
+  xhr.open('POST', `http://localhost:3000/${type}`);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({ username, password }));
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4) window.location.replace('http://localhost:3000/');
+  }
 };
 
 const initSignupModal = () => {

@@ -6,7 +6,7 @@ import Bottombar from './bottombar';
 import Userlist from './user-list.jsx';
 import UserProfile from './user-profile.jsx';
 
-const socket = new WebSocket('ws://192.168.0.81:3001/');
+const socket = new WebSocket('ws://192.168.0.98:3000/');
 
 class App extends Component {
   constructor(props) {
