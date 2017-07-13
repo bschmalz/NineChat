@@ -9,7 +9,10 @@ const submitUser = (event, isSignup) => {
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.send(JSON.stringify({ username, password }));
   xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) window.location.replace('http://localhost:3000/');
+    if (xhr.readyState === 4) {
+      console.log(xhr.response);
+      window.location.replace('http://localhost:3000/');
+    }
   }
 };
 

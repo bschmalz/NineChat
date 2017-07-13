@@ -103,7 +103,7 @@ class App extends Component {
 
         </div>
         <div id="users">
-          <UserProfile currentChat={this.state.currentChat} />
+          <UserProfile currentChat={this.state.currentChat} username={parseUsername(document.cookie)} />
           <h3>Friends</h3>
           <div className='user-list'>
             <ul>
@@ -114,6 +114,11 @@ class App extends Component {
       </div>
     );
   }
+}
+
+const parseUsername = (cookieString) => {
+  const indexOfUser = cookieString.indexOf('user=');
+  return cookieString.slice(indexOfUser + 5).split(';')[0];
 }
 
 export default App;
