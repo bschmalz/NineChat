@@ -30,7 +30,8 @@ module.exports = function(app) {
         .catch(err => console.log(err));
     });
 
-    ws.on('close', () => {
+    ws.on('close', (event) => {
+      console.log('check it event', event, 'check it id', connectList[id]);
       delete connectList[id];
     });
   });

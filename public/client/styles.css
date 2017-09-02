@@ -1,9 +1,16 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
 #main {
   display: flex;
+  margin: 0;
+  padding: 0;
 }
 
 #users {
-  width: 200px;
+  width: 25%;
   border: 1px solid black;
 }
 
@@ -12,44 +19,40 @@
   border-bottom: 1px solid black;
 }
 
+#chat {
+  width: 80%;
+}
+
 #chatbox {
   height: 400px;
-  width: 600px;
   border: 1px solid black;
   overflow: scroll;
+  margin: 0;
 }
 
 #topbar {
   display: flex;
   justify-content: flex-start;
-  height: 75px;
-  width: 600px;
-  border: 1px solid black;
+  height: 40px;
+  background-color: #3E313C;
 }
 
 #nineChat {
   text-align: center;
   margin-top: 15px;
-  width: 500px;
+  width: 100%;
   display: inline-block;
 }
 
-#imgbox {
+#logoimg {
+  margin-left: 10px;
   width: 75px;
-  border: 1px solid black;
-
-  display: inline-block;
-}
-
-#sixtynine {
-  width: 75px;
-  height: 75px;
+  height: 33px;
 }
 
 #bottombar {
-  border: 1px solid black;
   display: flex;
-  width: 600px;
+  width: 100%;
   height: 50px;
 }
 
@@ -58,6 +61,7 @@
   font-size: 28px;
   margin-left: 7px;
   margin-top: 8px;
+  width: 50px;
 }
 
 #sendButton:hover {
@@ -65,7 +69,7 @@
 }
 
 #textbox {
-  width: 560px;
+  width: 100%;
   line-height: 1.5;
   font-size: 16px;
 }

@@ -6,7 +6,7 @@ import Bottombar from './bottombar';
 import Userlist from './user-list.jsx';
 import UserProfile from './user-profile.jsx';
 
-const socket = new WebSocket('ws://192.168.0.98:3000/');
+const socket = new WebSocket('ws://192.168.0.107:3000/');
 
 class App extends Component {
   constructor(props) {
@@ -14,17 +14,28 @@ class App extends Component {
     this.state = this.getInitialState();
     this.sendClick = this.sendClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.parseUsername = '';
+  }
+
+  componentWillMount() {
+    const name = parseUsername(document.cookie); 
+    this.setState({parseUsername: name});
   }
 
   componentDidMount() {
     // before executing the set state below, componentDidMount needs to reach out to
-    // server via our websocket and pull down the list of messages between user and user[0].
     return socket.onopen = (event) => this.updateMessages();
   }
 
   updateMessages() {
     const currentChat = this.state.friendsList[0];
+      let announce = {
+      src: this.state.me.username,
+      dst: 'ADDUSER',
+      content: this.state.text,
+    };
 
+    socket.send(JSON.stringify(announce));
     socket.onmessage = (event) => {
       let messages = JSON.parse(event.data);
       if (Array.isArray(messages)) messages.reverse();
@@ -48,9 +59,7 @@ class App extends Component {
       text: '',
       me: { username: 'GarrettCS', name: 'Garrett', photo: 'test.jpg' }
     };
-
   }
-
   sendClick(event) {
     // message is sent to server via web socket,
     // message comes back as confirmed to client
@@ -95,12 +104,10 @@ class App extends Component {
         <div id="chat">
           <Topbar />
           <Chatbox messages={this.state.messages} />
-
           <Bottombar handleChange={this.handleChange}
             sendClick={this.sendClick}
             handleKeyPress={this.handleKeyPress} value={this.state.text}
           />
-
         </div>
         <div id="users">
           <UserProfile currentChat={this.state.currentChat} username={parseUsername(document.cookie)} />
