@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 function Chatbox(props) {
-  console.log(props.messages);
   if (props.messages.length > 0) {
     const msgs = props.messages.map((message, i) => {
       return (

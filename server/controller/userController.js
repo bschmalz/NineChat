@@ -13,7 +13,6 @@ const userController = {
 
 	verifyUser(req, res, next) {
 		User.findOne({username: req.body.username}, (err, result) => {
-			console.log('result is', result);
 			if (err) {
 				return res.status(400).send();
 			}

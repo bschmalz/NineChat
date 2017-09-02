@@ -32,12 +32,13 @@ class App extends Component {
       let announce = {
       src: this.state.me.username,
       dst: 'ADDUSER',
-      content: this.state.text,
+      content: 'hi',
     };
 
     socket.send(JSON.stringify(announce));
     socket.onmessage = (event) => {
       let messages = JSON.parse(event.data);
+      console.log('getting messages', messages); 
       if (Array.isArray(messages)) messages.reverse();
       const oldMessages = this.state.messages.slice();
       messages = oldMessages.concat(messages);

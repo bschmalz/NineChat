@@ -23,11 +23,18 @@ module.exports = function(app) {
     });
 
     ws.on('message', (data) => {
+      const parsedData = JSON.parse(data);
+      if (parsedData.dst === 'ADDUSER') {
+        console.log('oodddd');
+      } else {
       chatCtrl.addMsg(data)
         .then(savedMsg => {
+          console.log('saved', savedMsg);
           sendToAll(JSON.stringify(savedMsg));
         })
         .catch(err => console.log(err));
+      }
+
     });
 
     ws.on('close', (event) => {
