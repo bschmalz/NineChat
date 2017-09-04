@@ -14,7 +14,7 @@ const UserList = (props) => {
   return (
   	<div id = "friendList">
       <h4> Test </h4>
-      <div id="funtext">
+      <div className="scrollList">
       <ul className = "userList">
         {friends}
       </ul>

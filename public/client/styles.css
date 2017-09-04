@@ -20,6 +20,7 @@ body {
 
 #users {
   width: 25%;
+  height: 97%;
   background-color: #3E313C;
 }
 
@@ -31,45 +32,71 @@ body {
 .userList {
   list-style: none; 
   margin-top: 0;
-  margin-bottom: 10px;
   padding-left: 0px;
 }
 
 #friendList {
-  height: 50%; 
-  overflow: scroll;
+  height: 43%; 
   background-color: #3E313C;
   color: white;
-  font-weight: 200; 
+  font-weight: 200;
+  display: relative;
+  width: 100%;
+  padding-top: 0;
+
+}
+
+#friendList h4 {
+  margin-top: 30px;
+  vertical-align: middle; 
+
+}
+
+
+#container:after {
+  content: "";
+  display: block;
+  height: 50px;
+  width: 100%;
+}
+
+ul {
+  list-style-position: inside;
 }
 
 h4 {
-  margin-top: 4px;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  text-align: center; 
+  margin: 0px;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  color: #dbdbdb;
+  z-index: 10;
+  margin-bottom: 6px;
+  vertical-align: middle; 
 }
 
 .selItem {
   margin: 3px;
 }
 .selItem:hover {
-  background-color: green; 
+  letter-spacing: 0.08em;
+  font-weight: 500;  
 }
 
 
 #user-profile {
-  height: 50%;
-  border-bottom: 1px solid black;
-  overflow: scroll; 
+  height: 45%;
   background-color: #3E313C;
   color: white; 
   font-weight: 200;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding-top: 0;
+  margin-top: 0;
 }
 
 #chat {
   width: 80%;
+  height: 100%;
 }
 
 #chatbox {
@@ -84,6 +111,13 @@ h4 {
   justify-content: flex-start;
   height: 5%;
   background-color: #3E313C;
+}
+
+.scrollList {
+  overflow: auto;
+  width: 100%; 
+  height: 100%;
+  background-color: #3E313C; 
 }
 
 #nineChat {

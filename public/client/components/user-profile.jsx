@@ -14,9 +14,11 @@ const UserProfile = (props) => {
   return (
     <div id = "user-profile">
       <h4 id = "curUsers">Current Users</h4>
+      <div className="scrollList">
       <ul className = "userList">
         {names}
       </ul>
+      </div>
     </div>
   );
 }
