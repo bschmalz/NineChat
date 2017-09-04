@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Chatbox from './Chatbox';
 import Topbar from './topbar';
 import Bottombar from './bottombar';
-import Userlist from './user-list.jsx';
+import UserList from './user-list.jsx';
 import UserProfile from './user-profile.jsx';
 
 const socket = new WebSocket('ws://192.168.0.107:3000/');
@@ -108,12 +108,6 @@ class App extends Component {
   }
 
   render() {
-    const list = this.state.friendsList.map((friend, i) => (
-      <Userlist key={i} userClick={() => this.userClick(i)} user={i}
-        username={friend.username} name={friend.name} photo={friend.photo}
-      />
-    ));
-
     return (
       <div id="main">
         <div id="chat">
@@ -126,12 +120,7 @@ class App extends Component {
         </div>
         <div id="users">
           <UserProfile currentChat={this.state.currentChat} username={parseUsername(document.cookie)} />
-          <h3>Friends</h3>
-          <div className='friendList'>
-            <ul>
-              {list}
-            </ul>
-          </div>
+          <UserList />
         </div>
       </div>
     );
