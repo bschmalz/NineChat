@@ -8,12 +8,12 @@ const UserProfile = (props) => {
   	arr.push('broseph');
   }
   const names = arr.map(item => {
-    return (<li>{item}</li>)
+    return (<li className = "selItem">{item}</li>)
   }); 
 
   return (
     <div id = "user-profile">
-      <h4>Current Users</h4>
+      <h4 id = "curUsers">Current Users</h4>
       <ul className = "userList">
         {names}
       </ul>

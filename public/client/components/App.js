@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   updateMessages() {
-    const currentChat = this.state.friendsList[0];
       let announce = {
       src: this.state.me.username,
       dst: 'ADDUSER',
@@ -42,7 +41,7 @@ class App extends Component {
       if (Array.isArray(messages)) messages.reverse();
       const oldMessages = this.state.messages.slice();
       messages = oldMessages.concat(messages);
-      this.setState({ currentChat, messages });
+      this.setState({messages: messages});
       const objDiv = document.getElementById("chatbox");
       objDiv.scrollTop = objDiv.scrollHeight;
     }
@@ -54,10 +53,7 @@ class App extends Component {
     //connect ajax to this?
     return {
       messages: [],
-      friendsList: [
-        { username: 'JanelleCS', name: 'Janelle', photo: 'https://media.licdn.com/mpr/mpr/shrinknp_200_200/AAEAAQAAAAAAAAd8AAAAJGMxYmMyNTQzLTQ5OTgtNGVlNC05OGMzLWI0OTk5YzZlNGQ0MA.jpg' },
-        { username: 'JeffreyCS', name: 'Heffe', photo: 'https://scontent.xx.fbcdn.net/v/t1.0-9/11219607_690638340976_327480042333658050_n.jpg?oh=c054527c60804bfd5c4c4fb1968953bd&oe=59C73688' }
-      ],
+      friends: ['friend1', 'friend2', 'friend3'],
       currentChat: { username: '', name: '', photo: '' },
       text: '',
       me: { username: 'GarrettCS', name: 'Garrett', photo: 'test.jpg' }
@@ -119,8 +115,8 @@ class App extends Component {
           />
         </div>
         <div id="users">
-          <UserProfile currentChat={this.state.currentChat} username={parseUsername(document.cookie)} />
-          <UserList />
+          <UserProfile currentChat = {this.state.currentChat} username = {parseUsername(document.cookie)} />
+          <UserList friends = {this.state.friends}/>
         </div>
       </div>
     );

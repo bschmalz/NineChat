@@ -20,13 +20,27 @@ body {
 
 #users {
   width: 25%;
-  border: 1px solid black;
+  background-color: #3E313C;
 }
 
-#userList {
+#curUsers {
+  height: 5%;
+  margin-top: 15px;
+}
+
+.userList {
   list-style: none; 
   margin-top: 0;
-  padding-left: 10px;
+  margin-bottom: 10px;
+  padding-left: 0px;
+}
+
+#friendList {
+  height: 50%; 
+  overflow: scroll;
+  background-color: #3E313C;
+  color: white;
+  font-weight: 200; 
 }
 
 h4 {
@@ -36,15 +50,22 @@ h4 {
   text-align: center; 
 }
 
+.selItem {
+  margin: 3px;
+}
+.selItem:hover {
+  background-color: green; 
+}
+
 
 #user-profile {
   height: 50%;
   border-bottom: 1px solid black;
   overflow: scroll; 
-}
-
-#friendsList {
-  height: 50%;
+  background-color: #3E313C;
+  color: white; 
+  font-weight: 200;
+  margin-bottom: 20px;
 }
 
 #chat {
