@@ -9,10 +9,6 @@ function Bottombar(props) {
         onKeyPress={(event) => props.handleKeyPress(event)} placeholder='message...'
       />
 
-      <div id="sendButton" onClick={() => props.sendClick()}>
-        {String.fromCharCode(10004)}
-      </div>
-
     </div>
   )
 }
