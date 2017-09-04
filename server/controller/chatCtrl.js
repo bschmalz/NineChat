@@ -17,7 +17,7 @@ const chatCtrl = {
     Message.
       find({}).
       sort({timestamp: -1}).
-      limit(10).
+      limit(100).
       exec((err, result)=>{
         console.log('err', err)
         return callback(err, result)

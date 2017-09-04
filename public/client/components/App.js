@@ -14,12 +14,12 @@ class App extends Component {
     this.state = this.getInitialState();
     this.sendClick = this.sendClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.parseUsername = '';
+    this.parsedUsername = '';
   }
 
   componentWillMount() {
     const name = parseUsername(document.cookie); 
-    this.setState({parseUsername: name});
+    this.setState({parsedUsername: name});
   }
 
   componentDidMount() {
@@ -43,6 +43,8 @@ class App extends Component {
       const oldMessages = this.state.messages.slice();
       messages = oldMessages.concat(messages);
       this.setState({ currentChat, messages });
+      const objDiv = document.getElementById("chatbox");
+      objDiv.scrollTop = objDiv.scrollHeight;
     }
   }
 
@@ -67,18 +69,30 @@ class App extends Component {
     // client pushes it to messages array (SETS STATE)
     // react rerenders
     //textbox value is reset to null
+    let text = this.state.text; 
+    if (text === '') return;
+    let destination = 'chatroom';
+    if (text[0] === '@') {
+      let index = text.indexOf(' '); 
+      if (index < 0) return; 
+      destination = text.slice(1, index);
+      text = text.slice(index + 1);
+    }
     let aMessage = {
-      src: this.state.me.username,
-      dst: this.state.currentChat.username,
-      content: this.state.text,
+      src: this.state.parsedUsername,
+      dst: destination,
+      content: text,
     };
 
     socket.send(JSON.stringify(aMessage));
-    this.setState({ text: '' });
+    this.setState({ text:''});
   }
 
   handleKeyPress(event) {
-    if (event.key === 'Enter') this.sendClick(event);
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      this.sendClick(event);
+    }
   }
 
   userClick(user) {
@@ -113,7 +127,7 @@ class App extends Component {
         <div id="users">
           <UserProfile currentChat={this.state.currentChat} username={parseUsername(document.cookie)} />
           <h3>Friends</h3>
-          <div className='user-list'>
+          <div className='friendList'>
             <ul>
               {list}
             </ul>
