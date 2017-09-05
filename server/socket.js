@@ -14,18 +14,17 @@ module.exports = function(app) {
   }
 
   wss.on('connection', (ws, req) => {
-    let id = Object.keys(connectList).length;
-    let username = req.headers.username ? req.headers.username : "Garret";
-    connectList[id] = {id: id, ws: ws, username: username};
-  
-    chatCtrl.getLastTen(username, (err, messages)=>{
-      ws.send(JSON.stringify(messages))
-    });
-
+    let name; 
     ws.on('message', (data) => {
       const parsedData = JSON.parse(data);
       if (parsedData.dst === 'ADDUSER') {
-        console.log('oodddd');
+         name = parsedData.src; 
+         connectList[name] = {id: name, ws: ws};
+         chatCtrl.getLastTen(null, (err, messages) => {
+           ws.send(JSON.stringify(messages))
+         });
+         const ids = Object.keys(connectList); 
+         sendToAll(JSON.stringify({src: '__USERLIST__', message: ids})); 
       } else {
       chatCtrl.addMsg(data)
         .then(savedMsg => {
@@ -38,8 +37,10 @@ module.exports = function(app) {
     });
 
     ws.on('close', (event) => {
-      console.log('check it event', event, 'check it id', connectList[id]);
-      delete connectList[id];
+      console.log('check it event', name);
+      delete connectList[name]; 
+      const ids = Object.keys(connectList); 
+      sendToAll(JSON.stringify({src: '__USERLIST__', message: ids})); 
     });
   });
  return server; 

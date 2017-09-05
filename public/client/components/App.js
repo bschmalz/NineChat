@@ -14,7 +14,7 @@ class App extends Component {
     this.state = this.getInitialState();
     this.sendClick = this.sendClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.parsedUsername = '';
+    this.addFriend = this.addFriend.bind(this);
   }
 
   componentWillMount() {
@@ -23,13 +23,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // before executing the set state below, componentDidMount needs to reach out to
     return socket.onopen = (event) => this.updateMessages();
   }
 
+  addFriend(name) {
+    const friends = this.state.friends.slice(); 
+    if (friends.indexOf(name) < 0) friends.push(name); 
+    this.setState({friends: friends}); 
+  }
+
   updateMessages() {
-      let announce = {
-      src: this.state.me.username,
+    let announce = {
+      src: this.state.parsedUsername,
       dst: 'ADDUSER',
       content: 'hi',
     };
@@ -37,11 +42,15 @@ class App extends Component {
     socket.send(JSON.stringify(announce));
     socket.onmessage = (event) => {
       let messages = JSON.parse(event.data);
-      console.log('getting messages', messages); 
       if (Array.isArray(messages)) messages.reverse();
+      else if (messages.src === '__USERLIST__') {
+        this.setState({currentUsers: messages.message}); 
+        return; 
+      }
       const oldMessages = this.state.messages.slice();
       messages = oldMessages.concat(messages);
-      this.setState({messages: messages});
+      const newLastPost = messages[messages.length - 1].timestamp; 
+      this.setState({messages: messages, lastPost: newLastPost});
       const objDiv = document.getElementById("chatbox");
       objDiv.scrollTop = objDiv.scrollHeight;
     }
@@ -53,7 +62,10 @@ class App extends Component {
     //connect ajax to this?
     return {
       messages: [],
-      friends: ['friend1', 'friend2', 'friend3'],
+      friends: [],
+      currentUsers: [],
+      lastPost: '2017-09-04T23:51:39.416Z', 
+      parsedUsername: '',
       currentChat: { username: '', name: '', photo: '' },
       text: '',
       me: { username: 'GarrettCS', name: 'Garrett', photo: 'test.jpg' }
@@ -107,7 +119,7 @@ class App extends Component {
     return (
       <div id="main">
         <div id="chat">
-          <Topbar />
+          <Topbar lastPost = {this.state.lastPost} users = {this.state.currentUsers.length}/>
           <Chatbox messages={this.state.messages} />
           <Bottombar handleChange={this.handleChange}
             sendClick={this.sendClick}
@@ -115,7 +127,7 @@ class App extends Component {
           />
         </div>
         <div id="users">
-          <UserProfile currentChat = {this.state.currentChat} username = {parseUsername(document.cookie)} />
+          <UserProfile currentChat = {this.state.currentChat} users = {this.state.currentUsers} addFriend = {this.addFriend}/>
           <UserList friends = {this.state.friends}/>
         </div>
       </div>

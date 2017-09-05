@@ -2,12 +2,19 @@
 
 import React, { Component } from 'react'
 
-const UserProfile = (props) => {
-  const arr = [props.username, 'bro1', 'bro2', 'bro3']; 
-  const names = arr.map(item => {
-    return (<li className = "selItem">{item}</li>)
-  }); 
+class UserProfile extends Component {
+  constructor(props) {
+    super(props);
+  }
 
+  render() {
+    let names = []; 
+    console.log('user props', this.props)
+    if (this.props.users) {
+      names = this.props.users.map(name => {
+      return (<li key = {name} className = "selItem" onDoubleClick={() => this.props.addFriend(name)} >{name}</li>)
+    }); 
+  }
   return (
     <div id = "user-profile">
       <h4 id = "curUsers">Current Users</h4>
@@ -17,7 +24,8 @@ const UserProfile = (props) => {
       </ul>
       </div>
     </div>
-  );
+    );
+  }
 }
 
 export default UserProfile;
