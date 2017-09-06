@@ -13,7 +13,7 @@ const UserList = (props) => {
   }
   return (
   	<div id = "friendList">
-      <h4> Test </h4>
+      <h4> Friend List </h4>
       <div className="scrollList">
       <ul className = "userList">
         {friends}
